@@ -1,0 +1,34 @@
+
+1A : Install NLTK 16/01/24
+1B : Convert the given text to speech.
+1C : Convert audio file Speech to Text.
+2A : Study of various Corpus – Brown, Inaugural,Reuters, udhr with various methods like fields, raw, words,
+     sents, categories
+2B : Create and use your own corpora(plaintext, categorical) 16/01/24
+2C : C1. Study Conditional frequency distributions
+     C2. Study of tagged corpora with methods like tagged_sents, tagged_words.
+2D : Write a program to find the most frequent noun tags.
+2E : Map Words to Properties Using Python Dictionaries
+2F : Study DefaultTagger, Regular expression tagger, UnigramTagger
+3A : Study of Wordnet Dictionary with methods as synsets, definitions, examples, antonyms.
+3B : Study lemmas, hyponyms, hypernyms, entailments.
+3C : Write a program using python to find synonym and antonym of word "active" using Wordnet
+3D : Compare two nouns 17/02/24
+3E : Handling stopword.Using nltk Adding or Removing Stop Words in NLTK's Default Stop Word List Using Gensim
+     Adding and Removing Stop Words in Default Gensim Stop Words List Using Spacy Adding and
+     Removing Stop Words in Default Spacy Stop Words List
+4A : Tokenization using Python’s split() function
+4B : Tokenization using Regular Expressions (RegEx)
+4C : Tokenization using NLTK
+4D : Tokenization using the spaCy library
+4E : Tokenization using Keras
+4F : Tokenization using Gensim
+5A : Part of speech Tagging and chunking of user defined text.
+5B : Named Entity recognition of user defined text.
+5C : Named Entity recognition with diagram using NLTK corpus – Treebank
+6A : Define grammer using nltk. Analyze a sentence using the same.
+6B : Accept the input string with Regular expression of FA: 101+
+6C : Accept the input string with Regular expression of FA: (a+b)*bba
+6D : Implementation of Deductive Chart Parsing using context free grammar and a given sentence.
+7 : Study PorterStemmer, LancasterStemmer, RegexpStemmer,SnowballStemmer Study WordNetLemmatizer
+8 : Implement Naive Bayes classifier
