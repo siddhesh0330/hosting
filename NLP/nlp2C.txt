@@ -40,18 +40,12 @@ print("\nTreebank corpus: ", nltk.corpus.treebank.tagged_words())
 import nltk
 from nltk.corpus import brown
 
-# Download the Brown Corpus if not already downloaded
 nltk.download('brown')
-
-# Load the Brown Corpus
 brown_corpus = brown.words(categories=['news', 'romance'])
-
-# Create a Conditional Frequency Distribution
 cfd = nltk.ConditionalFreqDist((genre, word.lower())
                                 for genre in ['news', 'romance']
                                 for word in brown.words(categories=genre))
 
-# Print the most common words in each genre
 print("Most common words in 'news':", cfd['news'].most_common(10))
 print("Most common words in 'romance':", cfd['romance'].most_common(10))
 
