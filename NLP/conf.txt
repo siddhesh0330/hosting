@@ -158,6 +158,58 @@ print("\nTreebank corpus: ", nltk.corpus.treebank.tagged_words())
 
 
 
+#C1 updated : Study Conditional frequency distributions
+
+import nltk
+from nltk.corpus import brown
+
+# Download the Brown Corpus if not already downloaded
+nltk.download('brown')
+
+# Load the Brown Corpus
+brown_corpus = brown.words(categories=['news', 'romance'])
+
+# Create a Conditional Frequency Distribution
+cfd = nltk.ConditionalFreqDist((genre, word.lower())
+                                for genre in ['news', 'romance']
+                                for word in brown.words(categories=genre))
+
+# Print the most common words in each genre
+print("Most common words in 'news':", cfd['news'].most_common(10))
+print("Most common words in 'romance':", cfd['romance'].most_common(10))
+
+
+#C2 updated : Study of tagged corpora with methods like tagged_sents, tagged_words.
+import nltk
+from nltk.tokenize import word_tokenize
+
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('universal_tagset')
+nltk.download('nps_chat')
+nltk.download('treebank')
+nltk.download('conll2000')
+
+text = word_tokenize("And now for something completely different")
+
+tagged_text = nltk.pos_tag(text)
+
+print("Tagged Text:")
+print(tagged_text)
+
+brown_tagged_sents = nltk.corpus.brown.tagged_sents()
+print("\nTagged Sentences from Brown Corpus:")
+for i, tagged_sent in enumerate(brown_tagged_sents[:3], start=1):
+    print(f"Sentence {i}: {tagged_sent}")
+treebank_tagged_words = nltk.corpus.treebank.tagged_words()
+print("\nTagged Words from Treebank Corpus:")
+for i, (word, tag) in enumerate(treebank_tagged_words[:10], start=1):
+    print(f"Word {i}: {word} => Tag: {tag}")
+
+
+
+
+# 2D : Write a program to find the most frequent noun tags.
 import nltk
 from nltk.corpus import brown
 noundist = nltk.FreqDist(
