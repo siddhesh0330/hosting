@@ -50,6 +50,7 @@ print("Most common words in 'news':", cfd['news'].most_common(10))
 print("Most common words in 'romance':", cfd['romance'].most_common(10))
 
 
+
 #C2 updated : Study of tagged corpora with methods like tagged_sents, tagged_words.
 import nltk
 from nltk.tokenize import word_tokenize
