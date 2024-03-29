@@ -1,0 +1,53 @@
+#3E : Handling stopword. Using nltk Adding or Removing Stop Words in NLTK's Default Stop Word List Using Gensim Adding and Removing Stop Words in Default
+# Gensim Stop Words List Using Spacy Adding and
+# Removing Stop Words in Default Spacy Stop
+# Words List
+
+# download with command -> python -m spacy download en_core_web_sm
+import nltk
+import spacy
+from gensim.parsing.preprocessing import STOPWORDS, remove_stopwords
+from nltk import word_tokenize
+from spacy.lang.en import STOP_WORDS
+
+nltk.download('stopwords')
+nltk.download('punkt')
+example_sent = "This is a sample sentence, showing off the stop words filtration. stopWord1"
+def _there_e():
+    example_sent = "This is a sample sentence, showing off the stop words filtration. stopWord1"
+    def with_nltk():
+        stopwords = nltk.corpus.stopwords.words('english')
+        print(f'\ndefault stopwords\n{stopwords}\n')
+        stopwords.append('newWord')
+        print(f'\nstopwords after adding single word\n{stopwords}\n')
+        stopwords.remove('newWord')
+        print(f'\nstopwords after removing single word\n{stopwords}\n')
+        newStopWords = ['stopWord1','stopWord2']
+        stopwords.extend(newStopWords)
+        print(f'\nstopwords after adding multiple words at once\n{stopwords}\n')
+        word_tokens = word_tokenize(example_sent)
+        filtered_sentence = [w for w in word_tokens if not w in STOPWORDS]
+        filtered_sentence = []
+        for w in word_tokens:
+            if w not in STOPWORDS:
+                filtered_sentence.append(w)
+                print(f'\nword tokens{word_tokens}\n')
+                print(f'\nsentence without stop words\n{filtered_sentence}\n')
+def with_gensim():
+    print(f'\nDEFAULT gensim stop_words{STOPWORDS}')
+my_stop_words = STOPWORDS.union(set(['mystopword1', 'stopWord1']))
+print(f'\nupdated_stop_word_list\n{my_stop_words}\n')
+my_stop_words = set(my_stop_words).remove('a')
+filtered_sentence = remove_stopwords(example_sent)
+print(f'\nGensim - remove stopwords\n{filtered_sentence}\n')
+
+def with_spacy():
+    spacy_model = spacy.load('en_core_web_sm')
+    print(f'\nDEFAULT SPACY stop_words{STOP_WORDS}')
+STOP_WORDS.add("Test")
+print(f'\nupdated stop word list spacy\n{STOP_WORDS}\n')
+STOP_WORDS.remove("Test")
+print(f'\nstop word list after remove -- spacy\n{STOP_WORDS}\n')
+with_gensim()
+with_spacy()
+_there_e()

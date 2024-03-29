@@ -1,0 +1,10 @@
+#1B:Convert the given Text to Speech
+
+from gtts import gTTS
+import os
+f = open("C:\\Users\\siddh\\PycharmProjects\\NLP_PRACTICE\\test.txt")
+x = f.read()
+language = 'en'
+audio = gTTS(text = x, lang = language)
+audio.save("C:\\Users\\siddh\\PycharmProjects\\NLP_PRACTICE\\speech.wav")
+os.system("C:\\Users\\siddh\\PycharmProjects\\NLP_PRACTICE\\speech.wav")

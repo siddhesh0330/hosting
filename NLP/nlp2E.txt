@@ -1,0 +1,10 @@
+
+#2E Map Words to Properties Using Python Dictionaries
+build = {'CPU': 'AMD Ryzen 5 5600X', 'GPU': 'AMD RX 6500 XT'}
+print(build)
+# Declaring empty dict
+parts = {}
+parts[1] = 'CPU'
+parts[2] = 'GPU'
+parts[3] = 'RAM'
+print(parts)

@@ -1,0 +1,88 @@
+"""
+02
+Study of various Corpus – Brown, Inaugural, Reuters, udhr with various
+methods like fields, raw, words, sents, categories.
+import spacy as spacy
+"""
+
+#Brown Corpus
+import nltk
+nltk.download('brown')
+from nltk.corpus import brown
+print(brown.categories())
+print(brown.words(categories='news'))
+print(brown.words(fileids=['cg22']))
+print(brown.sents(categories=['news', 'editorial', 'reviews']))
+news_text = brown.words(categories='news')
+fdist = nltk.FreqDist(w.lower() for w in news_text)
+modals = ['can', 'could', 'may', 'might', 'must', 'will']
+for m in modals:
+    print(m + ':', fdist[m], end=' ')
+
+
+
+
+#Inaugural Corpus
+import nltk
+nltk.download('inaugural')
+from nltk.corpus import inaugural
+inaugural.fileids()
+[fileid[:4] for fileid in inaugural.fileids()]
+cfd = nltk.ConditionalFreqDist(
+    (target, fileid[:4])
+    for fileid in inaugural.fileids()
+    for w in inaugural.words(fileid)
+    for target in ['america', 'citizen']
+    if w.lower().startswith(target))
+cfd.plot()
+
+
+
+#Reuters Corpus
+import nltk
+nltk.download('reuters')
+from nltk.corpus import reuters
+print(reuters.categories())
+print(reuters.categories('training/9865'))
+print(reuters.categories(['training/9865', 'training/9880']))
+print(reuters.fileids('barley'))
+print(reuters.fileids(['barley', 'corn']))
+print(reuters.words('training/9865')[:14])
+print(reuters.words(['training/9865', 'training/9880']))
+print(reuters.words(categories=['barley', 'corn']))
+
+
+
+#Udhr Corpus
+import nltk
+nltk.download('udhr')
+from nltk.corpus import udhr
+print(udhr.fileids())
+print(udhr.words('Javanese-Latin1')[11:])
+languages = ['Chickasaw', 'English', 'German_Deutsch', 'Greenlandic_Inuktikut', 'Hungarian_Magyar',
+'Ibibio_Efik']
+cfd = nltk.ConditionalFreqDist(
+    (lang, len(word))
+    for lang in languages
+    for word in udhr.words(lang + '-Latin1'))
+cfd.plot(cumulative=True)
+
+
+
+# E) Common Methods
+import spacy
+nlp=spacy.load("en_core_web_sm")
+text = 'i live in Goregoan.'
+for token in nlp(text):
+    print(token.text, '->', token.dep_, '->', token.head.text)
+
+
+import spacy
+# download with command -> python -m spacy download en_core_web_sm
+nlp=spacy.load("en_core_web_sm")
+text='ram is a Intelligent boy.'
+for token in nlp(text):
+    print(token.text,'->',token.pos_,'->',token.tag_)
+
+
+

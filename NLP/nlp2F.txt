@@ -1,0 +1,47 @@
+
+# 2F Study DefaultTagger, Regular expression tagger, UnigramTagger
+# Default Tagger
+
+import nltk
+nltk.download('brown')
+nltk.download('punkt')
+from nltk.corpus import brown
+brown_tagged_sents = brown.tagged_sents(categories='news')
+tags = [tag for (word, tag) in brown.tagged_words(categories='news')]
+print("Most used tag: ", nltk.FreqDist(tags).max())
+# Creating a tagger that tags everything as NN
+raw = 'I do not like green eggs and ham, I do not like them Sam I am!'
+tokens = nltk.word_tokenize(raw)
+default_tagger = nltk.DefaultTagger('NN')
+print("Tagged with NN: \n", default_tagger.tag(tokens))
+
+
+# F2) Regular expression tagger
+
+from nltk.corpus import brown
+from nltk import word_tokenize
+from nltk import RegexpTagger
+patterns = [
+(r'.*ed$', 'VBD'), # simple past
+(r'.*es$', 'VBZ'), # 3rd singular present
+(r'.*ould$', 'MD'), # modals
+(r'.*\'s$', 'NN$'), # possessive nouns
+(r'.*s$', 'NNS'), # plural nouns
+(r'^-?[0-9]+(\.[0-9]+)?$', 'CD'), # cardinal numbers
+(r'.*', 'NN') # nouns (default)
+]
+regexp_tagger = RegexpTagger(patterns)
+brown_sents = brown.sents(categories='news')
+print('Tagged with RegexpTagger:')
+print(regexp_tagger.tag(brown_sents[3]))
+
+
+# F3) Unigram tagger
+import nltk
+from nltk.corpus import brown
+brown_tagged_sents = brown.tagged_sents(categories='news')
+brown_sents = brown.sents(categories='news')
+unigram_tagger = nltk.UnigramTagger(brown_tagged_sents)
+print('Sentence 2007 from brown corpus: \n', brown_sents[2007])
+print('\nTagged words from sentence 2007:',unigram_tagger.tag(brown_sents[2007]))
+print('\nEvaluation of UnigramTagger:',unigram_tagger.evaluate(brown_tagged_sents))

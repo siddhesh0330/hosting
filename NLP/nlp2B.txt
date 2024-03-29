@@ -1,0 +1,10 @@
+
+# 2B
+import os, os.path
+from nltk.corpus.reader import WordListCorpusReader
+
+path = os.path.expanduser('~/natural_language_toolkit_data')
+reader_corpus = WordListCorpusReader('.', ['wordsfile.txt'])
+w = reader_corpus.words()
+print(w)
+
