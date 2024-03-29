@@ -1,0 +1,16 @@
+8 : Implement Naive Bayes classifier
+import sklearn
+from sklearn.metrics  import   classification_report,confusion_matrix,accuracy_score
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import  train_test_split
+from sklearn.naive_bayes import GaussianNB
+data = load_breast_cancer()
+x = data.data
+y = data.target
+x_tarin,x_test,y_train,y_test = train_test_split(x,y,test_size=0.6,random_state=0)
+modal = GaussianNB()
+modal.fit(x_tarin,y_train)
+yp = modal.predict(x_test)
+print("confusion_matrix" , confusion_matrix(y_test,yp))
+print("classification report" , classification_report(y_test,yp))
+print("accuracy" , accuracy_score(y_test,yp)*100)

@@ -1,0 +1,37 @@
+row = 'hi i am body'
+
+#4a : tokenization split function
+import re
+row = 'hi i am body'
+print(row.split())
+
+#4b tokenization regex
+row = 'hi i am body'
+print(re.findall("[\w']+", row))
+
+#4c tokenization NLTK
+import nltk
+nltk.download('punkt')
+from nltk.tokenize import word_tokenize
+row = 'hi i am body'
+print(word_tokenize((row)))
+
+#4D tokenization spacy
+from spacy.lang.en import English
+modal = English()
+row = 'hi i am body'
+token = []
+for i in modal(row):
+    token.append(i)
+print(token)
+
+#4e tokenization keras colab only
+from keras.preprocessing.text import text_to_word_sequence
+row = 'hi i am body'
+print(text_to_word_sequence(row))
+
+#4f tokenization gensim colab only
+from gensim.utils import tokenize
+row = 'hi i am body'
+print(tokenize(row))
+

@@ -1,0 +1,77 @@
+7 : Study PorterStemmer, LancasterStemmer, RegexpStemmer,SnowballStemmer Study WordNetLemmatizer
+# 7a Study PorterStemmer
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer
+poter = PorterStemmer()
+words = ["gene", "genes", "genesis", "genetic", "generic", "general"]
+for i in words:
+    print(poter.stem(i))
+sentance = ("Heya Siddhesh, do you know it is important to be pythonly  while pythoning with python language. Stay being a pythoner")
+tokan = word_tokenize(sentance)
+for i in tokan:
+    print(poter.stem(i))
+
+# 7b  Study LancasterStemmer
+import nltk
+from nltk.tokenize import word_tokenize
+from  nltk.stem import LancasterStemmer
+modal = LancasterStemmer()
+terms = ["enjoy", "enjoying", "enjoyed", "enjoyable", "enjoyment", "enjoyful"]
+# check for word
+for i in terms:
+    print(modal.stem(i))
+# check for sentence
+sentence = "Heya Harshal, Why is it so with the dancers that when dancers dance, they dance as if they are dancing in the air?"
+token = word_tokenize(sentance)
+for i in token:
+    print(modal.stem(i))
+# creaet the file row.txt add any line in file
+file = open('row.txt')
+list_of_line = file.readline()
+token = word_tokenize(list_of_line[0])
+for i in token :
+    print(modal.stem(i))
+
+# 7c Study SnowballStemmer
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.stem.snowball import  SnowballStemmer
+modal1 = SnowballStemmer('english')
+modal2 = SnowballStemmer('dutch')
+words1 = ["reeba", "cheerful", "bravery","drawing", "satisfactorily", "publisher", "painful",
+"hardworking", "keys"]
+words2 = ["reeba", "bessen", "vriendelijkheid", "hobbelig"]
+for i in words1:
+    print(modal1.stem(i))
+for i in words2:
+    print(modal2.stem(i))
+
+#  7d  Study RegexpStemmer
+import nltk
+from nltk.tokenize import word_tokenize
+nltk.download('punkt')
+from nltk.stem import RegexpStemmer
+regexp = RegexpStemmer('ing$|s$|e$|able$|ment$|less$|ly$|ion$', min=4)
+print(regexp.stem('cars'))
+print(regexp.stem('bee'))
+print(regexp.stem('compute'))#
+terms = ["reebas", "stemming", "mentally", "ease","rockstar", "frictionless",
+"management","flowers", "advisable", "friction"]
+print("\n2. Performing regexp stemming on a list of words")
+for each_term in terms:
+    print(regexp.stem(each_term))
+
+
+# 7e WordNetLemmatizer
+import nltk
+from nltk.tokenize import word_tokenize
+from  nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+nltk.download('wordnet')
+modal_e = WordNetLemmatizer()
+sentence = "Heyaa Ishank, how are you doing? Keep digging in for the sentences to observe lemmatization!"
+words = word_tokenize(sentance)
+for i in words:
+    print("".join(modal_e.lemmatize(i)))
+

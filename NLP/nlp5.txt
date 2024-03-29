@@ -1,0 +1,36 @@
+#  5a  NRE Tagging and chunking of user defined text.
+from nltk import pos_tag,RegexpParser
+import nltk
+row = 'i am a boy'
+patttan = """ mychunk:{<NN.?>*<VBD.?>*<JJ.?>*<CC.?>}"""
+nltk.download('averaged_perceptron_tagger')
+token = row.split()
+print(token)
+tag = pos_tag((token))
+print(tag)
+chunker = RegexpParser(patttan)
+output = chunker.parse(tag)
+print(output)
+
+# 5b NER recognition of user defined text spacy.
+# NOTE : " python -m spacy download en_core_web_sm "
+import spacy
+row = "tom and sam playing for going to India"
+nlp = spacy.load("en_core_web_sm")
+ex = nlp(row)
+print([(X.text, X.label_) for X in ex.ents])
+
+# 5c NER recognition with diagram using NLTK corpus – Treebank
+import nltk
+from nltk import word_tokenize,pos_tag,ne_chunk
+row = 'Peterson first suggested the name "opensource" at Palo Alto, California'
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
+word = word_tokenize((row))
+tag = pos_tag(word)
+chunks = ne_chunk(tag)
+print(chunks)
+for ne in chunks:
+    if hasattr(ne, "label"):
+        print(ne.label(), ne[0:])
+chunks.pretty_print()

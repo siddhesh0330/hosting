@@ -1,0 +1,51 @@
+#6a : grammer using nltk. Analyze a sentence using the same
+import nltk
+grammar = nltk.CFG.fromstring("""
+S -> NP VP
+VP -> V NP | V NP PP
+PP -> P NP
+V -> "saw"|"eat"
+NP -> "john"|"shone"| Det N | Det N PP
+Det -> "a"|"an"|"the"|"my"
+N -> "man"|"dog"|"home"
+P -> "in" | "on" | "by" | "with" """)
+row = "john saw shone"
+words = row.split()
+print(words)
+modal = nltk.RecursiveDescentParser(grammar)
+print(list(modal.parse(words)))
+for tree in modal.parse(words):
+    print(tree)
+    tree.pretty_print()
+
+# 6B:  Accept the input string with Regular expression of FA: 101+ .
+import re
+def FA(s):
+    pattran = '^101'
+    if re.match(pattran,s):
+        print("accept")
+    else:
+        print("reject")
+inputs = ['1', '10101', '101', '10111', '101101',""]
+for i in inputs:
+    (FA(i))
+
+# 6c :  Accept the input string with Regular expression of FA: (a+b)*bba
+def FA(s):
+    pattern = r'^(a+b)*bba$'
+    if re.match(pattern, s):
+        print(f"{s}: accept")
+    else:
+        print(f"{s}: reject")
+inputs = ['bba', 'ababbba', 'abba','abb', 'baba','bbb','aba']
+for i in inputs:
+    (FA(i))
+
+# 6d : shift reduce, Implementation of Deductive Chart Parsing using context free grammar and a given sentence.
+print( '--------- 6d shift reduce ------\n')
+print("Shift reduce")
+sr_parse = nltk.ShiftReduceParser(grammar, trace=2)
+sent = "saw a dog".split()
+for tree1 in sr_parse.parse(sent):
+    print(tree1)
+    tree1.pretty_print()
