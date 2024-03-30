@@ -23,7 +23,7 @@ for i in terms:
     print(modal.stem(i))
 # check for sentence
 sentence = "Heya Harshal, Why is it so with the dancers that when dancers dance, they dance as if they are dancing in the air?"
-token = word_tokenize(sentance)
+token = word_tokenize(sentence)
 for i in token:
     print(modal.stem(i))
 # creaet the file row.txt add any line in file
@@ -65,13 +65,18 @@ for each_term in terms:
 
 # 7e WordNetLemmatizer
 import nltk
-from nltk.tokenize import word_tokenize
 from  nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 nltk.download('wordnet')
 modal_e = WordNetLemmatizer()
+print(modal_e.lemmatize("corpora"))
+print(modal_e.lemmatize("best"))
+print(modal_e.lemmatize("geese"))
+print(modal_e.lemmatize("feet"))
+print(modal_e.lemmatize("cacti"))
 sentence = "Heyaa Ishank, how are you doing? Keep digging in for the sentences to observe lemmatization!"
-words = word_tokenize(sentance)
-for i in words:
-    print("".join(modal_e.lemmatize(i)))
+words = word_tokenize(sentence)
+print(words)
+final = ' '.join([modal_e.lemmatize(each_word, pos = 'v') for each_word in words])
+print(final)
 
