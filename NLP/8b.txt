@@ -1,0 +1,40 @@
+//8B Restricted Access
+
+//SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.8.2 <0.9.0;
+contract RestrictedAcess {
+ uint public creationTime = block.timestamp;
+ address payable owner = payable(msg.sender);
+ modifier onlyBy(address _account) {
+ require(
+ msg.sender == _account,
+ "Sender not authorized."
+ );_; }
+ function changeOwner(address _newOwner) public onlyBy(owner) {
+ owner = payable(_newOwner);
+ }
+ modifier onlyAfter(uint _time) {
+ require(
+ block.timestamp >= _time,
+ "Function called too early."
+ );
+ _;
+ }
+ function disown() public onlyBy(owner) onlyAfter(creationTime + 6 weeks) {
+ delete owner;
+ }
+ modifier costs(uint _amount) {
+ require(
+ msg.value >= _amount,
+ "Not enough Ether provided."
+ );
+ _;
+ if (msg.value > _amount){
+ owner.transfer(msg.value - _amount);
+ }
+ }
+ function forceOwnerChange(address _newOwner) public payable costs(200 ether) {
+ owner = payable(_newOwner);
+ if (owner.balance & 0 == 1) return;
+ }
+}

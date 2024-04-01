@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.8.2 <0.9.0;
+
+// s4.Write a solidity program To find addition of any 5 numbers of an array of 10 numbers with using the index position.
+
+contract four {
+    uint256[]  numbers;
+
+    constructor(uint256[] memory _initialNumbers) {
+        require(_initialNumbers.length == 10, "Initial numbers array must have 10 elements");
+        numbers = _initialNumbers;
+    }
+    function addNumbers() public view returns (uint256) {
+        uint256 sum = 0;
+        for (uint256 i = 0; i < numbers.length; i++) {
+            if((i+1)%2 == 0) {sum += numbers[i];}
+        }
+        return sum;
+    }
+}
