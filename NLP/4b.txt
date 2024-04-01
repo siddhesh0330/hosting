@@ -1,0 +1,29 @@
+#4b using a deep feed forward neural network with two hidden layers for performing linear regression and predicting values
+from keras.models import Sequential
+from keras.layers import Dense
+from sklearn.datasets import make_regression
+from sklearn.preprocessing import MinMaxScaler
+print("30_vinayak")
+x,y = make_regression(n_samples=100,n_features=2,random_state=1,noise=0.1)
+scalarx,scalary = MinMaxScaler(),MinMaxScaler()
+scalarx.fit(x)
+scalary.fit(y.reshape(100,1))
+x=scalarx.transform(x)
+y=scalary.transform(y.reshape(100,1))
+
+
+model=Sequential()
+model.add(Dense(4,input_dim=2,activation="relu"))
+model.add(Dense(4,activation="relu"))
+model.add(Dense(1,activation="sigmoid"))
+
+model.compile(loss="mse",optimizer="adam",metrics=["accuracy"])
+model.fit(x,y,epochs=1000,batch_size=10,verbose=0)
+
+
+xnew,a = make_regression(n_samples=3,noise=0.1,n_features=2,random_state=1)
+xnew=scalarx.transform(xnew)
+ynew=model.predict(xnew)
+
+for i in range(len(xnew)):
+  print("x=%s , predicted=%s"%(xnew[i],ynew[i]))

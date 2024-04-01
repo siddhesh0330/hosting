@@ -1,0 +1,17 @@
+#b. Multiplication of two: Vector, Matrix and Tensor
+A=np.array([[1,2],[3,4]])
+B=np.array([[2,5],[7,4]])
+C=np.matmul(A,B)
+print("\nMatrix Multiplication:\n",C)
+x=np.array([1,2])
+y=np.array([5,6])
+z=x*y
+print("\nVector Multiplication:\n",z)
+z=np.dot(x,y)
+print("\nDot Product:\n",z)
+r = np.cross(x,y)
+print("\nCross Product:\n",r)
+tensor_A=tf.constant([[1,2]],dtype=tf.int32)
+tensor_B=tf.constant([[1,3]],dtype=tf.int32)
+result=tf.math.multiply(tensor_A,tensor_B)
+print("\nTensor Multiplcation:\n", result)
