@@ -1,0 +1,106 @@
+# 1)A simple client class that generates the private and public keys by using the builtin Python RSA algorithm and test it.
+#pip install pycryptodomex,pycrypto,pycryptodomex
+import Cryptodome
+from Cryptodome.PublicKey import RSA
+from Cryptodome.Signature import PKCS1_v1_5
+import binascii
+
+
+class Client:
+    def __init__(self):
+        random = Cryptodome.Random.new().read
+        self._private_key = RSA.generate(1024, random)
+        self._public_key = self._private_key.publickey()
+        self._signer = PKCS1_v1_5.new(self._private_key)
+
+    def identity(self):
+        return binascii.hexlify(self._public_key.exportKey(format='DER')).decode('ascii')
+
+
+user = Client()
+print(user.identity())
+user2 = Client()
+print(user2.identity())
+
+
+-----------------------------------------
+
+
+# 1b transaction class to send and receive money and test it.
+import Cryptodome
+import datetime
+import collections
+from Cryptodome.Hash import SHA
+from Cryptodome.PublicKey import RSA
+from Cryptodome.Signature import PKCS1_v1_5
+import binascii
+
+
+class Transaction:
+ def __init__(self, sender, recipient, value):
+  self.sender = sender
+  self.recipient = recipient
+  self.value = value
+  self.time = datetime.datetime.now()
+ def to_dict(self):
+  if self.sender == "Genesis":
+    identity = "Genesis"
+  else:
+    identity = self.sender.identity
+    return collections.OrderedDict({
+    'sender':self.sender,
+    'recipient':self.recipient,
+    'value':self.value,
+    'time':self.time})
+ def sign_transaction(self):
+  private_key = self.sender._private_key
+  signer = PKCS1_v1_5.new(private_key)
+  h = SHA.new(str(self.to_dict()).encode('utf8'))
+  return binascii.hexlify(signer.sign(h)).decode('ascii')
+t = Transaction(user,user2.identity, 5.0)
+signature = t.sign_transaction()
+print("Signature: ", signature)
+
+
+-----------------------------------------
+
+# 1c Create multiple transactions and display them.import Cryptodome
+import datetime
+import collections
+from Cryptodome.Hash import SHA
+from Cryptodome.PublicKey import RSA
+from Cryptodome.Signature import PKCS1_v1_5
+import binascii
+
+
+user3 = Client()
+user4 = Client()
+def display_transaction(transaction):
+ dict = transaction.to_dict()
+ print("Sender: " + str(dict['sender']))
+ print('------')
+ print("Recipient: " + str(dict['recipient']))
+ print('------')
+ print("Value: " + str(dict['value']))
+ print('------')
+ print("Time: " + str(dict['time']))
+ print('--------------------------------------------------------------------------------------------------------------')
+transaction = []
+Seema = Client()
+Vijay = Client()
+t1 = Transaction(Omkar, user.identity(), 15.0)
+t1.sign_transaction()
+transaction.append(t1)
+t2 = Transaction(Omkar, Seema.identity(), 6.0)
+t2.sign_transaction()
+transaction.append(t2)
+t3 = Transaction(Sophia, Vijay.identity(), 2.0)
+t3.sign_transaction()
+transaction.append(t3)
+t4 = Transaction(Seema, user.identity(), 4.0)
+t4.sign_transaction()
+transaction.append(t4)
+for transaction in transaction:
+ display_transaction(transaction)
+
+
