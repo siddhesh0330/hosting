@@ -1,12 +1,57 @@
-// SPDX-License-Identifier: GPL-3.0
+#4A using deep feed forward network with two hidden layers for performing multiclass classification and predicting class
 
-//4 : Functions Overloading [Bitwise and Arithmetic], Mathematical Functions
-pragma solidity >=0.8.2 <0.9.0;
-contract ArithmeticFunctionOverloading { 
-function add(uint256 num1, uint256 num2) public pure returns (uint256) { 
-return num1 + num2; 
-} 
-function add(string memory a, string memory b) public pure returns (string memory) { 
-return string(abi.encodePacked(a, b)); 
-} 
-}
+from keras.models import Sequential
+from keras.layers import Dense
+from sklearn.datasets import make_blobs
+from sklearn.preprocessing import MinMaxScaler
+print("30_vinayak")
+X,Y = make_blobs(n_samples=100, centers = 2, n_features=2, random_state=1)
+scalar = MinMaxScaler()
+scalar.fit(X)
+X = scalar.transform(X)
+
+model = Sequential()
+model.add(Dense(4, input_dim=2,activation='relu'))
+model.add(Dense(4,activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
+
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.fit(X,Y,epochs=500,verbose=0)
+
+Xnew,Yreal = make_blobs(n_samples=3,centers=2,n_features=2,random_state=1)
+Xnew = scalar.transform(Xnew)
+Ynew= model.predict(Xnew)
+
+for i in range(len(Xnew)):
+  print("X=%s, Predicted=%s, Desired=%s"%(Xnew[i],Ynew[i],Yreal[i]))
+
+
+#4b using a deep feed forward neural network with two hidden layers for performing linear regression and predicting values
+from keras.models import Sequential
+from keras.layers import Dense
+from sklearn.datasets import make_regression
+from sklearn.preprocessing import MinMaxScaler
+print("30_vinayak")
+x,y = make_regression(n_samples=100,n_features=2,random_state=1,noise=0.1)
+scalarx,scalary = MinMaxScaler(),MinMaxScaler()
+scalarx.fit(x)
+scalary.fit(y.reshape(100,1))
+x=scalarx.transform(x)
+y=scalary.transform(y.reshape(100,1))
+
+
+model=Sequential()
+model.add(Dense(4,input_dim=2,activation="relu"))
+model.add(Dense(4,activation="relu"))
+model.add(Dense(1,activation="sigmoid"))
+
+model.compile(loss="mse",optimizer="adam",metrics=["accuracy"])
+model.fit(x,y,epochs=1000,batch_size=10,verbose=0)
+
+
+xnew,a = make_regression(n_samples=3,noise=0.1,n_features=2,random_state=1)
+xnew=scalarx.transform(xnew)
+ynew=model.predict(xnew)
+
+for i in range(len(xnew)):
+  print("x=%s , predicted=%s"%(xnew[i],ynew[i]))

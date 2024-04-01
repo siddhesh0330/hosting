@@ -1,77 +1,73 @@
-//SPDX-License-Identifier: GPL-3.0
 
-/*
-5 : Create a Smart Contract for Patkar-Varde College which comprises of a set of Student
-Name, Roll Number, Class (30 entries) and another set of classroom numbers between 45 to
-49. Verify if the student is between roll number 1 to 5 then allocate Room No. 45, if roll number
-is between 6 to 10 then allocate 46 and so on.
-Note: User must enter the roll number and then classroom must be displayed.
-*/
-pragma solidity >=0.8.2 <0.9.0;
-contract PatkarCollege {
- struct Student {
- string name;
- uint256 rollNumber;
- string studentClass;
- uint256 allocatedClassroom;
- }
- Student[30] public studentinfo;
- constructor() {
- studentinfo[0] = Student("Mansi",1 , "MSc IT", 0);
- studentinfo[1] = Student("Sophia", 2, "MSc IT", 0);
- studentinfo[2] = Student("Omkar", 3, "MSc IT", 0);
- studentinfo[3] = Student("Amulya", 4, "MSc CS", 0);
- studentinfo[4] = Student("Sakshi", 5, "MSc IT", 0);
- studentinfo[5] = Student("Pramod", 6, "MSc IT", 0);
- studentinfo[6] = Student("Ravi", 7, "MSc CS", 0);
- studentinfo[7] = Student("Leo", 8, "MSc IT", 0);
- studentinfo[8] = Student("Akhil", 9, "MSc IT", 0);
- studentinfo[9] = Student("Ajith", 10, "MSc IT", 0);
- studentinfo[10] = Student("Nepolean", 11, "MSc CS", 0);
- studentinfo[11] = Student("Leeza", 12, "MSc IT", 0);
- studentinfo[12] = Student("Liya", 13, "MSc IT", 0);
- studentinfo[13] = Student("Sumathi", 14, "MSc IT", 0);
- studentinfo[14] = Student("Ramani", 15, "MSc IT", 0);
- studentinfo[15] = Student("Sreelaxmi", 16, "MSc CS", 0);
- studentinfo[16] = Student("Vinayak", 17, "MSc IT", 0);
- studentinfo[17] = Student("Vishnu", 18, "MSc IT", 0);
- studentinfo[18] = Student("Shiyam", 19, "MSc CS", 0);
- studentinfo[19] = Student("Alan", 20, "MSc CS", 0);
- studentinfo[20] = Student("Shri Hari", 21, "MSc IT", 0);
- studentinfo[21] = Student("Swapnali", 22, "MSc IT", 0);
- studentinfo[22] = Student("Priyanka", 23, "MSc CS", 0);
- studentinfo[23] = Student("Sameer", 24, "MSc IT", 0);
- studentinfo[24] = Student("Pranay", 25, "MSc IT", 0);
- studentinfo[25] = Student("Jessy", 26, "MSc IT", 0);
- studentinfo[26] = Student("Philip", 27, "MSc CS", 0);
- studentinfo[27] = Student("Mathew", 28, "MSc IT", 0);
- studentinfo[28] = Student("Flavia", 29, "MSc IT", 0);
- studentinfo[29] = Student("Shivam", 30, "MSc IT", 0);
+#5A Evaluating feed forwant deep network for regression using KFold cross validation
+from sklearn.model_selection import KFold
+import numpy as np
+from keras.models import Sequential
+from keras.layers import Dense
+print("30_vinayak")
+dataset = np.genfromtxt("/content/drive/MyDrive/Colab Notebooks/DL/diabetes.csv",delimiter=",")
+x = dataset[:,0:8]
+y = dataset[:,8]
+kfold = KFold(n_splits=5,shuffle=True)
+model = Sequential()
+model.add(Dense(12,input_dim=8,activation="relu"))
+model.add(Dense(8,activation="relu"))
+model.add(Dense(1,activation="sigmoid"))
+model.compile(loss="binary_crossentropy",optimizer="adam",metrics=["accuracy"])
+res = kfold.split(x)
+for train_index , test_index in res:
+  x_train , x_test = x[train_index], x[test_index]
+  y_train , y_test = y[train_index], y[test_index]
+  model.fit(x_train,y_train,epochs=10,batch_size=10,verbose=0)
+  _, accuracy = model.evaluate(x_test,y_test)
+  print("Accuracy : %.2f%%" %(accuracy * 100))
 
-for (uint256 i = 0; i < studentinfo.length; i++) {
- studentinfo[i].allocatedClassroom = allocateClassroom(studentinfo[i].rollNumber);
- }
- }
-function allocateClassroom(uint256 _rollNumber) internal pure returns (uint256) {
- require(_rollNumber >= 1 && _rollNumber <= 30, "Invalid roll number. Must be between 1 and 30.");
- if (_rollNumber >= 1 && _rollNumber <= 5) {
- return 45;
- } else if (_rollNumber >= 6 && _rollNumber <= 10) {
- return 46;
- } else if (_rollNumber >= 11 && _rollNumber <= 15) {
- return 47;
- } else if (_rollNumber >= 16 && _rollNumber <= 20) {
- return 48;
- } else if (_rollNumber >= 21 && _rollNumber <= 25) {
- return 49;
- }
- else if (_rollNumber >= 25 && _rollNumber <= 30) {
- return 50;
- }
- revert("Invalid roll number for classroom allocation.");
- }
-function getAllocatedClassroom(uint256 _rollNumber) public view returns (uint256) {
- require(_rollNumber >= 1 && _rollNumber <= 30, "Invalid roll number. Must be between 1 and 30.");
- return studentinfo[_rollNumber-1].allocatedClassroom;
- }
-}
+#5B Evaluating feed forward deep network for multiclass classification using KFold validation
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from keras.models import Sequential
+from keras.layers import Dense
+from sklearn.model_selection import train_test_split,KFold
+import seaborn as sns
+print("30_vinayak")
+df = pd.read_csv("/content/drive/MyDrive/Colab Notebooks/DL/Flower.csv")
+print(df.shape)
+print(df.head(10))
+df.describe()
+df.isnull().sum()
+sns.set(style="darkgrid")
+sns.pairplot(df,hue="species")
+corr_matrix = ["sepal_length","sepal_width","petal_length","petal_width"]
+sns.heatmap(df[corr_matrix].corr(),annot=True)
+plt.title("Correlation between values")
+plt.show()
+typeofiris = df["species"].value_counts()
+plt.pie(typeofiris,labels=typeofiris.index,autopct="%1.1f%%",startangle=90, colors=["lightblue","lightcoral","lightyellow"])
+plt.title("IRIS SPCIES")
+plt.show()
+y = pd.get_dummies(df["species"])
+x = df.drop(["species"],axis=1)
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.3)
+model = Sequential()
+model.add(Dense(4,activation="linear"))
+model.add(Dense(12,activation="sigmoid"))
+model.add(Dense(3,activation="softmax"))
+model.compile(loss="categorical_crossentropy",metrics=["accuracy"])
+model.fit(x_train,y_train,epochs=25,batch_size=3,verbose=0)
+#kf = KFold(n_splits=5, shuffle=True)
+#for train_index, test_index in kf.split(x):
+    #x_train, x_test = x.iloc[train_index], x.iloc[test_index]
+    #y_train, y_test = y.iloc[train_index], y.iloc[test_index]
+    #model.fit(x_train, y_train, epochs=25, batch_size=5, verbose=0)
+    #_,accuracy = model.evaluate(x_test, y_test)
+    #print("Accuracy : %.2f%%"%(accuracy*100))
+score = model.evaluate(x_test,y_test)
+print("Accuracy : " , score )
+df.head(10)
+class_name = [" IRIS SETOSA","IRIS VERSICOLOR","IRIS VERGINICA"]
+p = model.predict([[5.1,3.5,1.4,0.2]])
+max_index = np.argmax(p)
+predicted_class = class_name[max_index]
+print(p)
+print("Predicted class : ",predicted_class)
