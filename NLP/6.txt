@@ -4,7 +4,7 @@ from sklearn.datasets import make_moons
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.regularizers import l1_l2
-print("30_vinayak")
+
 x,y=make_moons(n_samples=100, noise=0.2,random_state=1)
 n_train=30
 trainx,testx=x[:n_train,:],x[n_train:]

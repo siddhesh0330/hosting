@@ -6,7 +6,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.model_selection import train_test_split,KFold
 import seaborn as sns
-print("30_vinayak")
+
 df = pd.read_csv("/content/drive/MyDrive/Colab Notebooks/DL/Flower.csv")
 print(df.shape)
 print(df.head(10))

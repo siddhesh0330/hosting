@@ -4,7 +4,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.datasets import make_blobs
 from sklearn.preprocessing import MinMaxScaler
-print("30_vinayak")
+
 X,Y = make_blobs(n_samples=100, centers = 2, n_features=2, random_state=1)
 scalar = MinMaxScaler()
 scalar.fit(X)

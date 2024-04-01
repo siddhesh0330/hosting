@@ -104,7 +104,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.datasets import make_blobs
 from sklearn.preprocessing import MinMaxScaler
-print("30_vinayak")
+
 X,Y = make_blobs(n_samples=100, centers = 2, n_features=2, random_state=1)
 scalar = MinMaxScaler()
 scalar.fit(X)
@@ -133,7 +133,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.datasets import make_regression
 from sklearn.preprocessing import MinMaxScaler
-print("30_vinayak")
+
 x,y = make_regression(n_samples=100,n_features=2,random_state=1,noise=0.1)
 scalarx,scalary = MinMaxScaler(),MinMaxScaler()
 scalarx.fit(x)
@@ -167,7 +167,7 @@ from sklearn.model_selection import KFold
 import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense
-print("30_vinayak")
+
 dataset = np.genfromtxt("/content/drive/MyDrive/Colab Notebooks/DL/diabetes.csv",delimiter=",")
 x = dataset[:,0:8]
 y = dataset[:,8]
@@ -195,7 +195,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.model_selection import train_test_split,KFold
 import seaborn as sns
-print("30_vinayak")
+
 df = pd.read_csv("/content/drive/MyDrive/Colab Notebooks/DL/Flower.csv")
 print(df.shape)
 print(df.head(10))
@@ -247,7 +247,7 @@ from sklearn.datasets import make_moons
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.regularizers import l1_l2
-print("30_vinayak")
+
 x,y=make_moons(n_samples=100, noise=0.2,random_state=1)
 n_train=30
 trainx,testx=x[:n_train,:],x[n_train:]

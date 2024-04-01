@@ -3,7 +3,7 @@ from sklearn.model_selection import KFold
 import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense
-print("30_vinayak")
+
 dataset = np.genfromtxt("/content/drive/MyDrive/Colab Notebooks/DL/diabetes.csv",delimiter=",")
 x = dataset[:,0:8]
 y = dataset[:,8]

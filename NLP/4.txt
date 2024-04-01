@@ -31,7 +31,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.datasets import make_regression
 from sklearn.preprocessing import MinMaxScaler
-print("30_vinayak")
+
 x,y = make_regression(n_samples=100,n_features=2,random_state=1,noise=0.1)
 scalarx,scalary = MinMaxScaler(),MinMaxScaler()
 scalarx.fit(x)
