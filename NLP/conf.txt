@@ -1,0 +1,342 @@
+#1A matrix ,vector tensor operation
+import numpy as np
+import tensorflow as tf
+x=np.array([1,2])
+A=np.array([[1,2],[3,4]])
+tensor_A=tf.constant([[1,2]],dtype=tf.int32)
+print("Vector:",x)
+print("Array:",A)
+print("Tensor:",tensor_A)
+A=np.array([[1,2],[3,4]])
+B=np.array([[2,5],[7,4]])
+C=np.matmul(A,B)
+print("\nMatrix Multiplication:\n",C)
+x=np.array([1,2])
+y=np.array([5,6])
+z=x*y
+print("\nVector Multiplication:\n",z)
+z=np.dot(x,y)
+print("\nDot Product:\n",z)
+r = np.cross(x,y)
+print("\nCross Product:\n",r)
+tensor_A=tf.constant([[1,2]],dtype=tf.int32)
+tensor_B=tf.constant([[1,3]],dtype=tf.int32)
+result=tf.math.multiply(tensor_A,tensor_B)
+print("\nTensor Multiplcation:\n", result)
+print("\nMatrix Addition:\n",C)
+z=x+y
+print("\nVector Addition:\n",z)
+result=tensor_A+tensor_B
+print("\nTensor Addition:\n", result)
+z=np.dot(A,x)
+print("Matrix with Vector multiplication:\n",z)
+print("Inverse of Matrix:\n", np.linalg.inv(A))
+
+--------------------------------------------------------------------------------
+
+#1b. Multiplication of two: Vector, Matrix and Tensor
+A=np.array([[1,2],[3,4]])
+B=np.array([[2,5],[7,4]])
+C=np.matmul(A,B)
+print("\nMatrix Multiplication:\n",C)
+x=np.array([1,2])
+y=np.array([5,6])
+z=x*y
+print("\nVector Multiplication:\n",z)
+z=np.dot(x,y)
+print("\nDot Product:\n",z)
+r = np.cross(x,y)
+print("\nCross Product:\n",r)
+tensor_A=tf.constant([[1,2]],dtype=tf.int32)
+tensor_B=tf.constant([[1,3]],dtype=tf.int32)
+result=tf.math.multiply(tensor_A,tensor_B)
+print("\nTensor Multiplcation:\n", result)
+
+---------------------------------------------------------------------------------
+
+#2 Solving XOR problem using deep feed forward network
+
+import numpy as np
+import tensorflow as tf
+from keras.layers import Dense
+from keras.models import Sequential
+model=tf.keras.models.Sequential()
+model.add(tf.keras.layers.Dense(units=2,activation='relu',input_dim=2))
+model.add(tf.keras.layers.Dense(units=1,activation='sigmoid'))
+model.compile(loss='binary_crossentropy',optimizer='adam', metrics=['accuracy'])
+print(model.summary())
+print(model.get_weights())
+x=np.array([[0.,0.],[0.,1.],[1.,0.],[1.,1.]])
+Y=np.array([0.,1.,1.,0.])
+model.fit(x,Y,epochs=50,batch_size=4,verbose=0)
+print(model.get_weights())
+print(model.predict(x,batch_size=4))
+
+--------------------------------------------------------------------------------
+
+#3 Implementing deep neural network for performing classification task
+from numpy import genfromtxt
+from keras.models import Sequential
+from keras.layers import Dense
+import pandas as pd
+dataset=pd.read_csv("/content/drive/MyDrive/Colab Notebooks/DL/diabetes.csv")
+print(dataset)
+X = dataset.iloc[:, 0:8]
+Y = dataset.iloc[:, 8]
+print(X.shape, Y.shape)
+model=Sequential()
+model.add(Dense(12,input_dim=8,activation='relu'))
+model.add(Dense(8,activation='relu'))
+model.add(Dense(1,activation='sigmoid'))
+model.compile(loss='binary_crossentropy' , optimizer='adam',metrics=['accuracy'])
+model.fit(X,Y,epochs=150,batch_size=10,verbose=0)
+_,accuracy=model.evaluate(X,Y)
+print("Accuracy is :",(accuracy*100))
+prediction = model.predict(X)
+for i in range(5):
+ print(X.iloc[i].tolist(),prediction[i],Y.iloc[i])
+
+ --------------------------------------------------------------------------
+
+ #4A using deep feed forward network with two hidden layers for performing multiclass classification and predicting class
+
+from keras.models import Sequential
+from keras.layers import Dense
+from sklearn.datasets import make_blobs
+from sklearn.preprocessing import MinMaxScaler
+print("30_vinayak")
+X,Y = make_blobs(n_samples=100, centers = 2, n_features=2, random_state=1)
+scalar = MinMaxScaler()
+scalar.fit(X)
+X = scalar.transform(X)
+
+model = Sequential()
+model.add(Dense(4, input_dim=2,activation='relu'))
+model.add(Dense(4,activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
+
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.fit(X,Y,epochs=500,verbose=0)
+
+Xnew,Yreal = make_blobs(n_samples=3,centers=2,n_features=2,random_state=1)
+Xnew = scalar.transform(Xnew)
+Ynew= model.predict(Xnew)
+
+for i in range(len(Xnew)):
+  print("X=%s, Predicted=%s, Desired=%s"%(Xnew[i],Ynew[i],Yreal[i]))
+
+
+-------------------------------------------------------------------------------
+
+#4b using a deep feed forward neural network with two hidden layers for performing linear regression and predicting values
+from keras.models import Sequential
+from keras.layers import Dense
+from sklearn.datasets import make_regression
+from sklearn.preprocessing import MinMaxScaler
+print("30_vinayak")
+x,y = make_regression(n_samples=100,n_features=2,random_state=1,noise=0.1)
+scalarx,scalary = MinMaxScaler(),MinMaxScaler()
+scalarx.fit(x)
+scalary.fit(y.reshape(100,1))
+x=scalarx.transform(x)
+y=scalary.transform(y.reshape(100,1))
+
+
+model=Sequential()
+model.add(Dense(4,input_dim=2,activation="relu"))
+model.add(Dense(4,activation="relu"))
+model.add(Dense(1,activation="sigmoid"))
+
+model.compile(loss="mse",optimizer="adam",metrics=["accuracy"])
+model.fit(x,y,epochs=1000,batch_size=10,verbose=0)
+
+
+xnew,a = make_regression(n_samples=3,noise=0.1,n_features=2,random_state=1)
+xnew=scalarx.transform(xnew)
+ynew=model.predict(xnew)
+
+for i in range(len(xnew)):
+  print("x=%s , predicted=%s"%(xnew[i],ynew[i]))
+
+
+ ----------------------------------------------------------------------------------
+
+
+ #5A Evaluating feed forwant deep network for regression using KFold cross validation
+from sklearn.model_selection import KFold
+import numpy as np
+from keras.models import Sequential
+from keras.layers import Dense
+print("30_vinayak")
+dataset = np.genfromtxt("/content/drive/MyDrive/Colab Notebooks/DL/diabetes.csv",delimiter=",")
+x = dataset[:,0:8]
+y = dataset[:,8]
+kfold = KFold(n_splits=5,shuffle=True)
+model = Sequential()
+model.add(Dense(12,input_dim=8,activation="relu"))
+model.add(Dense(8,activation="relu"))
+model.add(Dense(1,activation="sigmoid"))
+model.compile(loss="binary_crossentropy",optimizer="adam",metrics=["accuracy"])
+res = kfold.split(x)
+for train_index , test_index in res:
+  x_train , x_test = x[train_index], x[test_index]
+  y_train , y_test = y[train_index], y[test_index]
+  model.fit(x_train,y_train,epochs=10,batch_size=10,verbose=0)
+  _, accuracy = model.evaluate(x_test,y_test)
+  print("Accuracy : %.2f%%" %(accuracy * 100))
+
+-------------------------------------------------------------------------------------------
+
+#5B Evaluating feed forward deep network for multiclass classification using KFold validation
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from keras.models import Sequential
+from keras.layers import Dense
+from sklearn.model_selection import train_test_split,KFold
+import seaborn as sns
+print("30_vinayak")
+df = pd.read_csv("/content/drive/MyDrive/Colab Notebooks/DL/Flower.csv")
+print(df.shape)
+print(df.head(10))
+df.describe()
+df.isnull().sum()
+sns.set(style="darkgrid")
+sns.pairplot(df,hue="species")
+corr_matrix = ["sepal_length","sepal_width","petal_length","petal_width"]
+sns.heatmap(df[corr_matrix].corr(),annot=True)
+plt.title("Correlation between values")
+plt.show()
+typeofiris = df["species"].value_counts()
+plt.pie(typeofiris,labels=typeofiris.index,autopct="%1.1f%%",startangle=90, colors=["lightblue","lightcoral","lightyellow"])
+plt.title("IRIS SPCIES")
+plt.show()
+y = pd.get_dummies(df["species"])
+x = df.drop(["species"],axis=1)
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.3)
+model = Sequential()
+model.add(Dense(4,activation="linear"))
+model.add(Dense(12,activation="sigmoid"))
+model.add(Dense(3,activation="softmax"))
+model.compile(loss="categorical_crossentropy",metrics=["accuracy"])
+model.fit(x_train,y_train,epochs=25,batch_size=3,verbose=0)
+#kf = KFold(n_splits=5, shuffle=True)
+#for train_index, test_index in kf.split(x):
+    #x_train, x_test = x.iloc[train_index], x.iloc[test_index]
+    #y_train, y_test = y.iloc[train_index], y.iloc[test_index]
+    #model.fit(x_train, y_train, epochs=25, batch_size=5, verbose=0)
+    #_,accuracy = model.evaluate(x_test, y_test)
+    #print("Accuracy : %.2f%%"%(accuracy*100))
+score = model.evaluate(x_test,y_test)
+print("Accuracy : " , score )
+df.head(10)
+class_name = [" IRIS SETOSA","IRIS VERSICOLOR","IRIS VERGINICA"]
+p = model.predict([[5.1,3.5,1.4,0.2]])
+max_index = np.argmax(p)
+predicted_class = class_name[max_index]
+print(p)
+print("Predicted class : ",predicted_class)
+
+
+----------------------------------------------------------------------------------
+
+
+#6Implementing regularization to avoid over fitting in binary classification.
+from matplotlib import pyplot as plt
+from sklearn.datasets import make_moons
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.regularizers import l1_l2
+print("30_vinayak")
+x,y=make_moons(n_samples=100, noise=0.2,random_state=1)
+n_train=30
+trainx,testx=x[:n_train,:],x[n_train:]
+trainy,testy=y[:n_train],y[n_train:]
+model=Sequential()
+model.add(Dense(500,input_dim=2,activation='relu',kernel_regularizer=l1_l2(l1=0.001,l2=0.001)))
+model.add(Dense(1, activation='sigmoid'))
+model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
+history=model.fit(trainx,trainy,validation_data=(testx,testy), epochs=1000)
+plt.plot(history.history['val_accuracy'],label='test')
+plt.legend()
+plt.show()
+
+-----------------------------------------------------------------------
+
+
+#7  Performing encoding and decoding of image using deep encoders
+import keras
+from keras import layers
+from keras.datasets import mnist
+import numpy as np
+encoding_dim = 32
+#this is are input image
+input_img = keras.Input(shape=(784,))
+encoded = layers.Dense(encoding_dim, activation='relu')(input_img)
+decoded = layers.Dense(784, activation='sigmoid')(encoded)
+autoencoder = keras.Model(input_img,decoded)
+encoder = keras.Model(input_img, encoded)
+encoded_input = keras.Input(shape=(encoding_dim,))
+decoder_layer = autoencoder.layers[-1]
+decoder = keras.Model(encoded_input, decoder_layer(encoded_input))
+autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
+(X_train, _),(X_test, _) = mnist.load_data()
+X_train = X_train.astype('float32')/255.
+X_test = X_test.astype('float32')/255.
+X_train= X_train.reshape((len(X_train), np.prod(X_train.shape[1:])))
+X_test= X_test.reshape((len(X_test), np.prod(X_test.shape[1:])))
+print(X_train.shape)
+print(X_test.shape)
+autoencoder.fit(X_train, X_train, epochs=50, batch_size=256, shuffle=True, validation_data=(X_test,X_test),verbose=0)
+encoded_imgs = encoder.predict(X_test)
+decoded_imgs = decoder.predict(encoded_imgs)
+import matplotlib.pyplot as plt
+n= 10
+plt.figure(figsize=(40,4))
+for i in range(10):
+  ax = plt.subplot(3, 20, i+1)
+  plt.imshow(X_test[i].reshape(28, 28))
+  plt.gray()
+  ax.get_xaxis().set_visible(False)
+  ax.get_yaxis().set_visible(False)
+  ax = plt.subplot(3, 20, i + 1 + 20)
+  plt.imshow(encoded_imgs[i].reshape(8,4))
+  plt.gray()
+  ax.get_xaxis().set_visible(False)
+  ax.get_yaxis().set_visible(False)
+  ax = plt.subplot(3, 20, 2*20 + i + 1)
+
+plt.imshow(decoded_imgs[i].reshape(28,28))
+plt.gray()
+ax.get_xaxis().set_visible(False)
+ax.get_yaxis().set_visible(False)
+plt.show()
+
+----------------------------------------------------------------------------
+
+
+#8 Implementation of CNN to predict a number from number images
+from keras.datasets import mnist
+from keras.utils import to_categorical
+from keras.models import Sequential
+from keras.layers import Dense, Conv2D, Flatten
+import matplotlib.pyplot as plt
+(X_train, Y_train),(X_test,Y_test) = mnist.load_data()
+plt.imshow(X_train[0])
+plt.show()
+print(X_train[0].shape)
+X_train = X_train.reshape(60000,28,28,1)
+X_test = X_test.reshape(10000,28,28,1)
+Y_train = to_categorical(Y_train)
+Y_test = to_categorical(Y_test)
+Y_train[0]
+print(Y_train[0])
+model = Sequential()
+model.add(Conv2D(64,kernel_size=3,activation='relu',input_shape=(28,28,1)))
+model.add(Conv2D(32,kernel_size=3,activation='relu'))
+model.add(Flatten())
+model.add(Dense(10,activation='softmax'))
+model.compile(optimizer='adam', loss='categorical_crossentropy',metrics=['accuracy'])
+model.fit(X_train, Y_train, validation_data=(X_test,Y_test),epochs=3,verbose=0)
+print(model.predict(X_test[:4]))
+print(Y_test[:4])

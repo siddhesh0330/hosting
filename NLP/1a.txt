@@ -1,4 +1,4 @@
-#A matrix ,vector tensor operation
+#1A matrix ,vector tensor operation
 import numpy as np
 import tensorflow as tf
 x=np.array([1,2])
